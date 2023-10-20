@@ -2,10 +2,10 @@
 
 namespace PhotosApi.Models.PhotoModel
 {
-    public class PhotosModelRepository : IPhotoModelRepository
+    public class PhotoModelRepository : IPhotoModelRepository
     {
-        private PhotosModelDbContext _dbContext { get; set; }
-        public PhotosModelRepository(PhotosModelDbContext dbContext)
+        private PhotoModelDbContext _dbContext { get; set; }
+        public PhotoModelRepository(PhotoModelDbContext dbContext)
         {
             _dbContext = dbContext;
         }

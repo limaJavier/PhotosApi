@@ -10,7 +10,7 @@ using PhotosApi.Models.PhotoModel;
 
 namespace PhotosApi.Migrations
 {
-    [DbContext(typeof(PhotosModelDbContext))]
+    [DbContext(typeof(PhotoModelDbContext))]
     [Migration("20231020144547_Initial")]
     partial class Initial
     {

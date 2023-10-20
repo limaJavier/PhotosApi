@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<PhotosModelDbContext>(opts => {
+builder.Services.AddDbContext<PhotoModelDbContext>(opts => {
     opts.UseSqlServer(
     builder.Configuration["ConnectionStrings:PhotosDBConnection"]);
 });
@@ -16,7 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IPhotoModelRepository, MockPhotoModelRepo>();
+builder.Services.AddScoped<IPhotoModelRepository, PhotoModelRepository>();
 builder.Services.AddSingleton<IPhotoFileRepository, PhotoFileRepository>();
 
 var app = builder.Build();

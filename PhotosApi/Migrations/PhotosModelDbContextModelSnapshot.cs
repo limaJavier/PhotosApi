@@ -9,7 +9,7 @@ using PhotosApi.Models.PhotoModel;
 
 namespace PhotosApi.Migrations
 {
-    [DbContext(typeof(PhotosModelDbContext))]
+    [DbContext(typeof(PhotoModelDbContext))]
     partial class PhotosModelDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
