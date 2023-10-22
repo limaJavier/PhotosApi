@@ -4,9 +4,9 @@
     {
         private HashSet<int> _takenIds = new HashSet<int>();
         private List<Photo> _photos { get; set; } = new List<Photo>();
-        public bool CreatePhoto(Photo photo, string url)
+        public bool CreatePhoto(Photo photo)
         {
-            _photos.Add(new Photo() { Id = GetId(), Title = photo.Title, Description = photo.Description, Url = url });
+            _photos.Add(new Photo() { Id = GetId(), Title = photo.Title, Description = photo.Description, Url = photo.Url, ContentType = photo.ContentType });
             return true;
         }
 

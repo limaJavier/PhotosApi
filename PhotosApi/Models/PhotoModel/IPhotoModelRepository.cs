@@ -4,7 +4,7 @@
     {
         IEnumerable<Photo> GetAllPhotos();
         Photo? GetPhoto(int id);
-        bool CreatePhoto(Photo photo, string url);
+        bool CreatePhoto(Photo photo);
         bool UpdatePhoto(int id, Photo photo);
         bool DeletePhoto(int id, out string url);
     }

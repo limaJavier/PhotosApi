@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PhotosApi.Models.PhotoModel;
 using PhotosApi.Models.PhotoFile;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PhotosApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PhotosController : ControllerBase
@@ -16,10 +18,12 @@ namespace PhotosApi.Controllers
             _photoFileRepository = photoFileRepository;
         }
 
+        [AllowAnonymous]
         // GET: api/Photos
         [HttpGet(Name = "GetAllPhotos")]
         public ActionResult<IEnumerable<Photo>> GetAllPhotos() => Ok(_photoModelRepository.GetAllPhotos());
 
+        [AllowAnonymous]
         // GET api/Photos/GetPhoto/5
         [HttpGet("{id:int}", Name = "GetPhoto")]
         public ActionResult<Photo> GetPhoto(int id)
@@ -30,20 +34,28 @@ namespace PhotosApi.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         //GET api/Photos/Download/5
         [HttpGet("Download/{id:int}", Name = "DownloadPhoto")]
-        public string DownloadPhoto(int id)
+        public IActionResult DownloadPhoto(int id)
         {
-            return "value";
+            var photo = _photoModelRepository.GetPhoto(id);
+            if (photo == null)
+                return NotFound();
+
+            if (!_photoFileRepository.DownloadPhoto(photo.Url, out byte[] bytes))
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            return File(bytes, photo.ContentType);
         }
 
         // POST api/Photos
-        [HttpPost(Name = "CreatePhoto")]
+        [HttpPost(Name = "StorePhoto")]
         public IActionResult StorePhoto([FromForm] PhotoFile photoFile)
         {
             if (!_photoFileRepository.UploadPhoto(photoFile, out string url))
                 return StatusCode(StatusCodes.Status500InternalServerError);
-            if (!_photoModelRepository.CreatePhoto(new Photo() { Description = photoFile.Description, Title = photoFile.Title, Album = photoFile.Album }, url))
+            if (!_photoModelRepository.CreatePhoto(new Photo() { Description = photoFile.Description, Title = photoFile.Title, Album = photoFile.Album, Url = url, ContentType = photoFile.FormFile.ContentType }))
                 return StatusCode(StatusCodes.Status500InternalServerError);
             return NoContent();
         }

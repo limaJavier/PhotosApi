@@ -11,7 +11,15 @@ namespace PhotosApi.Models.PhotoFile
             {
                 var headers = photoFile.FormFile.ContentDisposition.Split(";");
                 var fileName = headers[headers.Length - 1].Split('"')[1];
-                url = GetUrl(fileName.Remove(fileName.Length - 4));
+
+                string bla = Path.GetExtension(fileName);
+
+
+                // Verifying we're dealing with image filesF
+                if (Path.GetExtension(fileName.ToLower()) != ".png" && Path.GetExtension(fileName.ToLower()) != ".jpeg" && Path.GetExtension(fileName.ToLower()) != ".jpg")
+                    return false;
+
+                url = GetUrl(fileName);
                 try
                 {
                     using (var stream = new FileStream(url, FileMode.Create))
@@ -41,12 +49,19 @@ namespace PhotosApi.Models.PhotoFile
         }
         private string GetUrl(string name)
         {
+            var extension = Path.GetExtension(name);
             var path = "Storage";
-            var url = $"{path}\\{name}";
+            var url = $"{path}\\{Path.GetFileNameWithoutExtension(name)}";
             var i = 1;
-            while (Directory.GetFiles(path).Any(file => file == $"{url}.png"))
-                url = $"{path}\\{name}{i++}";
-            return $"{url}.png";
+            while (Directory.GetFiles(path).Any(file => file == $"{url}{extension}"))
+                url = $"{url}{i++}";
+            return $"{url}{extension}";
+        }
+
+        public bool DownloadPhoto(string url, out byte[] bytes)
+        {
+            bytes = File.ReadAllBytes(url);
+            return true;
         }
     }
 }

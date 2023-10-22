@@ -9,10 +9,9 @@ namespace PhotosApi.Models.PhotoModel
         {
             _dbContext = dbContext;
         }
-        public bool CreatePhoto(Photo photo, string url)
+        public bool CreatePhoto(Photo photo)
         {
-            _dbContext.Photos.Add(new Photo() { Title = photo.Title, Description = photo.Description, Album = photo.Album, Url = url });
-            int i = 10;
+            _dbContext.Photos.Add(new Photo() { Title = photo.Title, Description = photo.Description, Album = photo.Album, Url = photo.Url, ContentType = photo.ContentType});
             _dbContext.SaveChanges();
             return true;
         }
