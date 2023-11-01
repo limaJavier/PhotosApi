@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PhotosApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PhotosController : ControllerBase
@@ -51,7 +51,7 @@ namespace PhotosApi.Controllers
 
         // POST api/Photos
         [HttpPost(Name = "StorePhoto")]
-        public IActionResult StorePhoto([FromForm] PhotoFile photoFile)
+        public IActionResult StorePhoto([FromBody] PhotoFile photoFile)
         {
             if (!_photoFileRepository.UploadPhoto(photoFile, out string url))
                 return StatusCode(StatusCodes.Status500InternalServerError);
