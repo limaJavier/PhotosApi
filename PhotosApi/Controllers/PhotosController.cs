@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PhotosApi.Contracts.Photo;
 using PhotosApi.Models;
+using PhotosApi.Services;
 
 namespace PhotosApi.Controllers;
 
@@ -8,8 +9,14 @@ namespace PhotosApi.Controllers;
 [Route("photos/")]
 public class PhotosController : ControllerBase
 {
+    private IPhotosService _photosService;
+    public PhotosController(IPhotosService photosService)
+    {
+        _photosService = photosService;
+    }
+
     [HttpPost]
-    public IActionResult StorePhoto(CreatePhotoRequest request)
+    public IActionResult StorePhoto([FromForm] CreatePhotoRequest request)
     {
         // TODO
         // Store picture
@@ -23,6 +30,8 @@ public class PhotosController : ControllerBase
                 DateTime.UtcNow,
                 url
             );
+
+        _photosService.StorePhoto(photo);
 
         var response = new PhotoResponse
             (
@@ -42,8 +51,20 @@ public class PhotosController : ControllerBase
             );
     }
 
-    public IActionResult GetPhoto()
+    [HttpGet]
+    public IActionResult GetPhoto(Guid id)
     {
-        return Ok();
+        var photo = _photosService.GetPhoto(id);
+
+        var response = new PhotoResponse
+           (
+               photo.Id,
+               photo.Name,
+               photo.Description,
+               photo.LastModifiedDateTime,
+               photo.Url
+           );
+
+        return Ok(response);
     }
 }
