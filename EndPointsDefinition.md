@@ -4,7 +4,7 @@
 
 **Endpoint**
 
-`POST /Photos`
+`POST /photos`
 
 **Body**
 
@@ -24,7 +24,7 @@
 
 **Location**
 
-`{{host}}/Photos/{{id}}`
+`{{host}}/photos/{{id}}`
 
 **Body**
 
@@ -34,7 +34,7 @@
 	"name": "pic_name.png",
 	"description": "This is an example picture",
 	"lastModifiedDateTime": "2023-04-08T08:00:00",
-	"url": "https:/{{host}}/Photos/Storage/id_name.png"
+	"url": "https:/{{host}}/photos/Storage/id_name.png"
 }
 ```
 
@@ -44,7 +44,7 @@
 
 **Endpoint**
 
-`GET /Photos/{{id}}`
+`GET /photos/{{id}}`
 
 ## Get Photo Response
 
@@ -59,7 +59,7 @@
 	"id": "2d767b07-fb0d-4618-8232-14b82e8f4e92",
 	"name": "pic_name.png",
 	"description": "This is an example picture",
-	"url": "https:/{{host}}/Photos/Storage/id_name.png"
+	"url": "https:/{{host}}/photos/Storage/id_name.png"
 }
 ```
 
@@ -69,7 +69,7 @@
 
 **Endpoint**
 
-`PUT /Photos/{{id}}`
+`PUT /photos/{{id}}`
 
 **Body**
 
@@ -94,7 +94,7 @@
 	"name": "pic_renamed.png",
 	"description": "This picture has been modified",
 	"lastModifiedDateTime": "2023-04-08T08:00:00",
-	"url": "https:/{{host}}/Photos/Storage/id_renamed.png"
+	"url": "https:/{{host}}/photos/Storage/id_renamed.png"
 }
 ```
 
@@ -104,7 +104,7 @@
 
 **Endpoint**
 
-`DELETE /Photos/{{id}}`
+`DELETE /photos/{{id}}`
 
 ## Delete Photo Response
 
@@ -118,7 +118,7 @@
 
 **Endpoint**
 
-`GET /Photos/Download/{{id}}`
+`GET /photos/Download/{{id}}`
 
 ## Download Photo Response
 
