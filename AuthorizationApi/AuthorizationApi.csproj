@@ -11,8 +11,4 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PhotosApi.Contracts\PhotosApi.Contracts.csproj" />
-  </ItemGroup>
-
 </Project>
