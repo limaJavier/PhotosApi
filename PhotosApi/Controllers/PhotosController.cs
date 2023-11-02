@@ -20,7 +20,9 @@ public class PhotosController : ControllerBase
     {
         // TODO
         // Store picture
-        string url = "https:/fakeurl";
+
+        
+        string url = "https://fakeurl";
 
         var photo = new Photo
             (
@@ -51,7 +53,7 @@ public class PhotosController : ControllerBase
             );
     }
 
-    [HttpGet]
+    [HttpGet("{id:guid}")]
     public IActionResult GetPhoto(Guid id)
     {
         var photo = _photosService.GetPhoto(id);
@@ -66,5 +68,47 @@ public class PhotosController : ControllerBase
            );
 
         return Ok(response);
+    }
+
+    [HttpPut("{id:guid}")]
+    public IActionResult UpsertPhoto(Guid id, UpsertPhotoRequest request)
+    {
+        // TODO
+        // Get Url from IStorage
+        string url = "https://fakeurl";
+
+        var photo = new Photo
+            (
+                id,
+                request.Name,
+                request.Description,
+                DateTime.UtcNow,
+                url
+            );
+
+        _photosService.UpsertPhoto(photo);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:guid}")]
+    public IActionResult DeletePhoto(Guid id)
+    {
+        _photosService.DeletePhoto(id);
+
+        return NoContent();
+    }
+
+    [HttpGet("/download/{id:guid}")]
+    public IActionResult DownloadPhoto(Guid id)
+    {
+        _photosService.DeletePhoto(id);
+        return NoContent();
+    }
+
+    [HttpGet]
+    public IActionResult GetPhotos()
+    {
+        return Ok(_photosService.GetPhotos());
     }
 }

@@ -2,7 +2,7 @@
 
 public interface IStorageService
 {
-    void StorePhoto(IFormFile file);
+    string StorePhoto(IFormFile file);
     void DeletePhoto(Guid id);
     byte[] DownloadPhoto(Guid id);
 }

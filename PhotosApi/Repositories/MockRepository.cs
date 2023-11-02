@@ -24,4 +24,8 @@ public class MockRepository : IPhotosRepository
     {
         _photos[photo.Id] = photo;
     }
+    public Photo[] GetAll()
+    {
+        return _photos.Values.ToArray();
+    }
 }

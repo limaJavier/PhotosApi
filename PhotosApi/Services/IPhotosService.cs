@@ -8,4 +8,5 @@ public interface IPhotosService
     Photo GetPhoto(Guid id);
     void UpsertPhoto(Photo photo);
     void DeletePhoto(Guid id);
+    Photo[] GetPhotos();
 }

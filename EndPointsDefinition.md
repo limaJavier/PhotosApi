@@ -133,3 +133,31 @@
 	fileContentResult: "string of bytes representing the image"
 }
 ```
+
+# Get Photos
+
+## Get Photos Request
+
+**Endpoint**
+
+`GET /photos/`
+
+## Get Photos Response
+
+**Status Code**
+
+`200 Ok`
+
+**Body**
+
+An array of this type of json
+
+```json
+{
+	"id": "2d767b07-fb0d-4618-8232-14b82e8f4e92",
+	"name": "pic_name.png",
+	"description": "This is an example picture",
+	"lastModifiedDateTime": "2023-04-08T08:00:00",
+	"url": "https:/{{host}}/photos/Storage/id_name.png"
+}
+```

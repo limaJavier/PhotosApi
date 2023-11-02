@@ -8,4 +8,5 @@ public interface IPhotosRepository
     Photo Get(Guid id);
     void Upsert(Photo photo);
     void Delete(Guid id);
+    Photo[] GetAll();
 }

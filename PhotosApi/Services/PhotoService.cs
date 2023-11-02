@@ -30,4 +30,8 @@ public class PhotosService : IPhotosService
     {
         _repository.Upsert(photo);
     }
+    public Photo[] GetPhotos()
+    {
+        return _repository.GetAll();
+    }
 }
