@@ -6,20 +6,9 @@ namespace PhotosApi.Models;
 [PrimaryKey(nameof(Id))]
 public class Photo
 {
-    public Guid Id { get; }
-    public string Name { get; }
-    public string Description { get; }
-    public DateTime LastModifiedDateTime { get; }
-    public string Url { get; }
-
-    public Photo(
-        Guid id, string name, string description, DateTime lastModifiedDateTime, string url)
-    {
-        Id = id;
-        Name = name;
-        Description = description;
-        LastModifiedDateTime = lastModifiedDateTime;
-        Url = url;
-    }
-    public Photo() { }
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public DateTime LastModifiedDateTime { get; set; }
+    public string Url { get; set; } = string.Empty;
 }

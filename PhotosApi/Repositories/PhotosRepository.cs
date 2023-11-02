@@ -8,29 +8,29 @@ public class PhotosRepository : IPhotosRepository
     public PhotosRepository(PhotosDBContext dbContext)
     {
         _dbContext = dbContext;
-        _dbContext.SaveChanges();
     }
     public void Store(Photo photo)
     {
-        _dbContext.Products.Add(photo);
+        _dbContext.Photos.Add(photo);
+        _dbContext.SaveChanges();
     }
     public Photo Get(Guid id)
     {
-        return _dbContext.Products.Find(id) ?? throw new NullReferenceException();
+        return _dbContext.Photos.Find(id) ?? throw new NullReferenceException();
     }
     public void Upsert(Photo photo)
     {
-        Delete(photo.Id);
-        _dbContext.Products.Add(photo);
+        _dbContext.Update(photo);
+        _dbContext.SaveChanges();
     }
     public void Delete(Guid id)
     {
-        var photoToRemove = _dbContext.Products.Find(id) ?? throw new NullReferenceException();
-        _dbContext.Remove(photoToRemove);
+        var photo = _dbContext.Photos.Find(id);
+        _dbContext.Photos.Remove(photo);
+        _dbContext.SaveChanges();
     }
     public Photo[] GetAll()
     {
-        var data = _dbContext.Products;
-        return _dbContext.Products.AsEnumerable<Photo>().ToArray();
+        return _dbContext.Photos.AsEnumerable<Photo>().ToArray();
     }
 }

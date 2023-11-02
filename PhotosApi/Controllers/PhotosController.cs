@@ -24,13 +24,13 @@ public class PhotosController : ControllerBase
         var url = _storageService.StorePhoto(id, request.File);
 
         var photo = new Photo
-            (
-                id,
-                request.Name,
-                request.Description,
-                DateTime.UtcNow,
-                url
-            );
+        {
+            Id = id,
+            Name = request.Name,
+            Description = request.Description,
+            LastModifiedDateTime = DateTime.UtcNow,
+            Url = url
+        };
 
         _photosService.StorePhoto(photo);
 
@@ -72,18 +72,16 @@ public class PhotosController : ControllerBase
     [HttpPut("{id:guid}")]
     public IActionResult UpsertPhoto(Guid id, UpsertPhotoRequest request)
     {
-        // TODO
-        // Get Url from IStorage
-        string url = "https://fakeurl";
+        var storedPhoto = _photosService.GetPhoto(id);
 
         var photo = new Photo
-            (
-                id,
-                request.Name,
-                request.Description,
-                DateTime.UtcNow,
-                url
-            );
+        {
+            Id = id,
+            Name = request.Name,
+            Description = request.Description,
+            LastModifiedDateTime = DateTime.UtcNow,
+            Url = storedPhoto.Url
+        };
 
         _photosService.UpsertPhoto(photo);
 

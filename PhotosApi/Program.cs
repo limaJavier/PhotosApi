@@ -11,11 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddDbContext<PhotosDBContext>(options =>
     {
-        options.UseSqlServer(config["ConnectionStrings:PhotosDBConnection"]);
+        options.UseSqlServer(config["ConnectionStrings:PhotosAPIDBConnection"]);
     });
 
-
-    builder.Services.AddTransient<IPhotosRepository, PhotosRepository>();
+    builder.Services.AddScoped<IPhotosRepository, PhotosRepository>();
     builder.Services.AddScoped<IPhotosService, PhotosService>();
     builder.Services.AddScoped<IStorageService, StorageService>();
 }
