@@ -10,23 +10,22 @@ namespace PhotosApi.Controllers;
 public class PhotosController : ControllerBase
 {
     private IPhotosService _photosService;
-    public PhotosController(IPhotosService photosService)
+    private IStorageService _storageService;
+    public PhotosController(IPhotosService photosService, IStorageService storageService)
     {
         _photosService = photosService;
+        _storageService = storageService;
     }
 
     [HttpPost]
     public IActionResult StorePhoto([FromForm] CreatePhotoRequest request)
     {
-        // TODO
-        // Store picture
-
-        
-        string url = "https://fakeurl";
+        var id = Guid.NewGuid();
+        var url = _storageService.StorePhoto(id, request.File);
 
         var photo = new Photo
             (
-                Guid.NewGuid(),
+                id,
                 request.Name,
                 request.Description,
                 DateTime.UtcNow,
@@ -94,16 +93,17 @@ public class PhotosController : ControllerBase
     [HttpDelete("{id:guid}")]
     public IActionResult DeletePhoto(Guid id)
     {
+        _storageService.DeletePhoto(id);
         _photosService.DeletePhoto(id);
 
         return NoContent();
     }
 
-    [HttpGet("/download/{id:guid}")]
+    [HttpGet("/storage/{id:guid}")]
     public IActionResult DownloadPhoto(Guid id)
     {
-        _photosService.DeletePhoto(id);
-        return NoContent();
+        var fileData = _storageService.DownloadPhoto(id);
+        return File(fileData.Item1, fileData.Item2);
     }
 
     [HttpGet]

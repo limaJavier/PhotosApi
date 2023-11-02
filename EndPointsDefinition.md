@@ -118,7 +118,7 @@
 
 **Endpoint**
 
-`GET /photos/Download/{{id}}`
+`GET /photos/storage/{{id}}`
 
 ## Download Photo Response
 

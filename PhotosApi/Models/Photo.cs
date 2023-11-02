@@ -1,5 +1,9 @@
-﻿namespace PhotosApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
+namespace PhotosApi.Models;
+
+[PrimaryKey(nameof(Id))]
 public class Photo
 {
     public Guid Id { get; }
@@ -17,4 +21,5 @@ public class Photo
         LastModifiedDateTime = lastModifiedDateTime;
         Url = url;
     }
+    public Photo() { }
 }
