@@ -1,4 +1,5 @@
 using Moq;
+using Bogus;
 using PhotosApi.Models;
 using PhotosApi.Repositories;
 using PhotosApi.Services;
@@ -57,7 +58,12 @@ public class PhotosServiceTests
 
     private void BuildRepo()
     {
-        for (int i = 0; i < 100; i++)
-            _repo.Store(new Photo { Id = Guid.NewGuid(), Description = $"Some description {i}", Name = $"Some name {i}" });
+        var photoModelFake = new Faker<Photo>("es") // By default it's "en" English
+            .RuleFor(p => p.Id, Guid.NewGuid())
+            .RuleFor(p => p.Name, f => f.Name.FirstName())
+            .RuleFor(p => p.Description, f => f.Lorem.Text());
+
+        foreach (var photo in photoModelFake.Generate(100))
+            _repo.Store(photo);
     }
 }
