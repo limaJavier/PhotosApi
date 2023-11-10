@@ -1,1 +1,1 @@
-# PhotosApiApp
+# PhotosApi
