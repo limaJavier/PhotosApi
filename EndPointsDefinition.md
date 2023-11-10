@@ -130,7 +130,7 @@
 
 ```json
 {
-	fileContentResult: "string of bytes representing the image"
+	"fileContentResult": "string of bytes representing the image"
 }
 ```
 
